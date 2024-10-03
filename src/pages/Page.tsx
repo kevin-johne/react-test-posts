@@ -8,7 +8,7 @@ import UserDropdown from "../modules/UserDropdown";
 
 interface PageProps {
   title: string;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 export default function Page(props: PageProps) {
