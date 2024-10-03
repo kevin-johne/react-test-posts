@@ -1,7 +1,7 @@
 import Icon from "@ant-design/icons";
 import { Input } from "antd";
-import CloseIcon from "../icons/CloseIcon";
-import SearchIcon from "../icons/SearchIcon";
+import CloseIcon from "icons/CloseIcon";
+import SearchIcon from "icons/SearchIcon";
 import "./SearchInput.css";
 import React from "react";
 

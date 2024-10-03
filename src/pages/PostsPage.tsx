@@ -3,7 +3,7 @@ import Page from "./Page";
 import { useUser } from "../context/UserContext";
 import { useFetch } from "../hooks/useRequests";
 import PostCard, { Post } from "../modules/Post";
-import SearchInput from "../modules/SearchInput";
+import SearchInput from "../modules/SearchInput/SearchInput";
 import React from "react";
 
 export default function Posts() {

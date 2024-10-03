@@ -1,6 +1,5 @@
 import { UnorderedListOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
-import { Content, Header } from "antd/es/layout/layout";
 import "./Page.css";
 import AvatarButton from "../patterns/Buttons/AvatarButton";
 import { Link } from "react-router-dom";
@@ -16,7 +15,7 @@ export default function Page(props: PageProps) {
 
   return (
     <Layout>
-      <Header className="page-header">
+      <Layout.Header className="page-header">
         <div className="page-header-item left">
           <Link to="/active-user">
             <AvatarButton icon={<UserOutlined />} />
@@ -29,8 +28,8 @@ export default function Page(props: PageProps) {
         <div className="page-header-item right">
           <UserDropdown />
         </div>
-      </Header>
-      <Content className="page-content">{children}</Content>
+      </Layout.Header>
+      <Layout.Content className="page-content">{children}</Layout.Content>
     </Layout>
   );
 }
