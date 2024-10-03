@@ -1,48 +1,30 @@
-import { useEffect, useState } from "react";
-
-import { Card, Space } from "antd";
-import "./PostsPage.css";
+import { Space } from "antd";
 import Page from "./Page";
 import { useUser } from "../context/UserContext";
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
+import { useFetch } from "../hooks/useRequests";
+import PostCard, { Post } from "../modules/Post";
 
 export default function Posts() {
-  const [posts, setPosts] = useState<Post[]>([]);
   const { data: userDetails } = useUser();
   const { id: userId } = userDetails || {};
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
-      .then((response) => response.json())
-      .then((json) => setPosts(json));
-  }, [userId]);
+  const {
+    data: posts,
+    isError,
+    isLoading,
+  } = useFetch<Post[]>(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading posts</div>;
 
   return (
     <Page title="Posts">
       <Space direction="vertical">
-        {posts.length === 0
-          ? "No posts found."
-          : posts.map((post, index) => <PostCard key={index} post={post} />)}
+        {posts?.length && posts.length > 0
+          ? posts.map((post, index) => <PostCard key={index} post={post} />)
+          : "No posts found."}
       </Space>
     </Page>
-  );
-}
-
-interface PostCardProps {
-  post: Post;
-}
-
-function PostCard(props: PostCardProps) {
-  const { post } = props;
-
-  return (
-    <Card className="post-card">
-      <h3>{post.title}</h3>
-    </Card>
   );
 }

@@ -1,18 +1,10 @@
-import {
-  DownOutlined,
-  UnorderedListOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, MenuProps, Space } from "antd";
+import { UnorderedListOutlined, UserOutlined } from "@ant-design/icons";
+import { Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
 import "./Page.css";
 import AvatarButton from "../patterns/Buttons/AvatarButton";
 import { Link } from "react-router-dom";
-import React from "react";
-import { useFetch } from "../hooks/useRequests";
-import { UserDetails } from "../types";
-import { useUser } from "../context/UserContext";
-import { PrimaryButton } from "../patterns/Buttons/Button";
+import UserDropdown from "../modules/UserDropdown";
 
 interface PageProps {
   title: string;
@@ -40,35 +32,5 @@ export default function Page(props: PageProps) {
       </Header>
       <Content className="page-content">{children}</Content>
     </Layout>
-  );
-}
-
-function UserDropdown() {
-  const { data: users, isLoading } = useFetch<UserDetails[]>(
-    "https://jsonplaceholder.typicode.com/users"
-  );
-  const { data: userDetails, setUserId } = useUser();
-
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    setUserId(Number(e.key));
-  };
-
-  const menuProps = {
-    items: users?.map((user) => ({
-      key: user.id,
-      label: user.name,
-    })),
-    onClick: handleMenuClick,
-  };
-
-  return (
-    <Dropdown menu={menuProps}>
-      <PrimaryButton loading={isLoading}>
-        <Space>
-          {userDetails?.name || "Select user"}
-          <DownOutlined />
-        </Space>
-      </PrimaryButton>
-    </Dropdown>
   );
 }

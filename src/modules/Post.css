@@ -1,0 +1,23 @@
+.post-card {
+    background-color: rgb(254, 250, 219);
+    border: 2px solid black;
+    width: 500px;
+}
+
+
+.post-card,
+.ant-card-head {
+    color: black;
+    border-color: black !important;
+}
+
+
+.post-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.post-card.expanded .post-card-body {
+    max-height: 200px;
+}

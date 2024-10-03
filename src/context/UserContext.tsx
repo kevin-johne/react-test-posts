@@ -18,7 +18,7 @@ export const UserProvider = ({
   userId: number;
 }) => {
   const [id, setId] = React.useState<number>(userId);
-  const { data: userDetails, error } = useFetch<UserDetails>(
+  const { data: userDetails, isError: error } = useFetch<UserDetails>(
     `https://jsonplaceholder.typicode.com/users/${id}`
   );
 
