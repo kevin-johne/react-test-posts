@@ -39,7 +39,15 @@ function App() {
                   </>
                 }
               />
-              <Route path="*" element={<PostsPage />} />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <PageTitle title="Posts" />
+                    <PostsPage />
+                  </>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
