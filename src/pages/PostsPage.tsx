@@ -1,15 +1,15 @@
 import { Space } from "antd";
-import Page from "./Page";
 import { useUser } from "../context/UserContext";
 import { useFetch } from "../hooks/useRequests";
 import PostCard, { Post } from "../modules/Post";
 import SearchInput from "../modules/SearchInput/SearchInput";
 import React from "react";
 
-export default function Posts() {
+export default function Posts(props: any) {
   const { data: userDetails } = useUser();
   const [search, setSearch] = React.useState("");
   const { id: userId } = userDetails || {};
+
   const {
     data: posts,
     isError,
@@ -25,23 +25,19 @@ export default function Posts() {
   const filteredPosts = posts?.filter((post) => post.title.includes(search));
 
   return (
-    <Page title="Posts">
-      <Space
-        direction="vertical"
-        style={{
-          width: "500px",
-        }}
-      >
-        <SearchInput value={search} onChange={setSearch} />
+    <Space
+      direction="vertical"
+      style={{
+        width: "500px",
+      }}
+    >
+      <SearchInput value={search} onChange={setSearch} />
 
-        {filteredPosts?.length && filteredPosts.length > 0 ? (
-          filteredPosts.map((post, index) => (
-            <PostCard key={index} post={post} />
-          ))
-        ) : (
-          <div style={{ textAlign: "center" }}>No posts found.</div>
-        )}
-      </Space>
-    </Page>
+      {filteredPosts?.length && filteredPosts.length > 0 ? (
+        filteredPosts.map((post, index) => <PostCard key={index} post={post} />)
+      ) : (
+        <div style={{ textAlign: "center" }}>No posts found.</div>
+      )}
+    </Space>
   );
 }

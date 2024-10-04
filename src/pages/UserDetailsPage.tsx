@@ -1,11 +1,11 @@
-import Page from "./Page";
 import { Spin } from "antd";
 import { useUser } from "../context/UserContext";
 
 export default function UserDetailsPage() {
   const { data: userDetails } = useUser();
+
   return (
-    <Page title="User Details">
+    <>
       {userDetails === null ? (
         <Spin />
       ) : (
@@ -24,6 +24,6 @@ export default function UserDetailsPage() {
           </p>
         </div>
       )}
-    </Page>
+    </>
   );
 }

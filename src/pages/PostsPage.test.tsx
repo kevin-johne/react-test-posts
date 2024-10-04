@@ -2,7 +2,6 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PostsPage from "./PostsPage";
 import { UserContext } from "context/UserContext";
-import { MemoryRouter } from "react-router-dom";
 
 beforeEach(() => {
   jest.spyOn(window, "fetch").mockImplementation(() =>
@@ -29,23 +28,21 @@ beforeEach(() => {
 
 const setup = async () => {
   const utils = render(
-    <MemoryRouter>
-      <UserContext.Provider
-        value={{
-          data: {
-            id: 1,
-            name: "John Doe",
-            email: "john@doe.com",
-            phone: "123456789",
-            website: "www.johndoe.com",
-          },
-          error: null,
-          setUserId: () => {},
-        }}
-      >
-        <PostsPage />
-      </UserContext.Provider>
-    </MemoryRouter>
+    <UserContext.Provider
+      value={{
+        data: {
+          id: 1,
+          name: "John Doe",
+          email: "john@doe.com",
+          phone: "123456789",
+          website: "www.johndoe.com",
+        },
+        error: null,
+        setUserId: () => {},
+      }}
+    >
+      <PostsPage />
+    </UserContext.Provider>
   );
   const input = await waitFor(
     () => screen.getByRole("textbox") as HTMLInputElement

@@ -2,11 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import { ConfigProvider } from "antd";
-import { lazy } from "react";
-import React from "react";
 import { UserProvider } from "./context/UserContext";
-const UserDetailsPage = lazy(() => import("./pages/UserDetailsPage"));
-const PostsPage = lazy(() => import("./pages/PostsPage"));
+import UserDetailsPage from "./pages/UserDetailsPage";
+import PostsPage from "./pages/PostsPage";
+import Layout, { PageTitle } from "layout/Layout";
 
 function App() {
   return (
@@ -21,40 +20,31 @@ function App() {
       <UserProvider userId={1}>
         <BrowserRouter>
           <Routes>
-            <Route
-              path="posts"
-              element={
-                <WithLoadingState>
-                  <PostsPage />
-                </WithLoadingState>
-              }
-            />
-            <Route
-              path="active-user"
-              element={
-                <WithLoadingState>
-                  <UserDetailsPage />
-                </WithLoadingState>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <WithLoadingState>
-                  <PostsPage />
-                </WithLoadingState>
-              }
-            />
+            <Route element={<Layout />}>
+              <Route
+                path="posts"
+                element={
+                  <>
+                    <PageTitle title="Posts" />
+                    <PostsPage />
+                  </>
+                }
+              />
+              <Route
+                path="active-user"
+                element={
+                  <>
+                    <PageTitle title="User Details" />
+                    <UserDetailsPage />
+                  </>
+                }
+              />
+              <Route path="*" element={<PostsPage />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </UserProvider>
     </ConfigProvider>
-  );
-}
-
-function WithLoadingState({ children }: { children: React.ReactNode }) {
-  return (
-    <React.Suspense fallback={<div>Loading...</div>}>{children}</React.Suspense>
   );
 }
 
